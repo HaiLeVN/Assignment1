@@ -1,19 +1,16 @@
 package Assignment;
-
-
 public class Node {
     Node next;
-    Phone data;
-    
+    Object data;
+    Phone info;
     Node (){
     }
-    
-    Node (Phone data,Node p){
+    Node (Object data,Node p){
         this.data = data;
         next = p;
     }
    
-    Node(Phone data){
+    Node(Object data){
         this(data,null);
     }
 }

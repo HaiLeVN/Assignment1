@@ -5,18 +5,20 @@ import java.util.Scanner;
 public class List {
 
     Node head, tail;
-    Node next;
+    int size;
 
     public List() {
         head = tail = null;
+        size = 0;
     }
 
     public boolean isEmpty() {
-        return head == null;
+        return (size == 0);
     }
 
     public void clear() {
         head = tail = null;
+        size = 0;
     }
 
     public int length() {
@@ -31,20 +33,26 @@ public class List {
         return count;
     }
 
-    public void show(Phone obj) {
-        for (int i = 0; i < length(); i++) {
-            System.out.print(obj.getID() + " " +obj.getName() + " " + obj.getPrice() + " " + obj.getAmount() + " " + obj.getYear() + "\n");
+    public void show() {
+        
+        for(Node k = head;k!=null;k=k.next){
+            System.out.println(k.data.toString());
         }
+        
     }
-    public void input() {
+    public Phone input() {
+        Phone phone = new Phone();
         Scanner sc = new Scanner(System.in);
         int code, amount, year;
         String name;
         double price;
-        
         System.out.print("Phone ID ");
         code = sc.nextInt();
         sc.nextLine();
+        while (isIDExist(code)) {
+            System.out.println("ID already exists, please enter a different ID: ");
+            code = sc.nextInt();
+        }
         System.out.print("Name: ");
         name = sc.nextLine();
         System.out.print("Price: ");
@@ -56,8 +64,10 @@ public class List {
         System.out.print("Year: ");
         year = sc.nextInt();
         System.out.println("Successfully added!");
-        Phone phone = new Phone(code, name, price, amount, year);
+        phone = new Phone(code, name, price, amount, year);
         add_Last(phone);
+        show();
+        return phone;
     }
 
     public void show2() {
@@ -71,22 +81,25 @@ public class List {
 
     public void add_First(Phone data) {
         if (isEmpty()) {
-            head = tail = new Node(data);
+            head = tail = new Node(data, null);
         } else {
-            Node p = new Node(data);
+            Node p = new Node(data, null);
             p.next = head;
             head = p;
         }
+        size++;
     }
 
     public void add_Last(Phone data) {
         if (isEmpty()) {
-            head = tail = new Node(data);
+            head = tail = new Node(data, null);
         } else {
-            Node p = new Node(data);
-            tail.next = p;
-            tail = p;
+            Node newest = new Node(data, null);
+            newest.next = null;
+            tail.next = newest;
+            tail = newest; 
         }
+        size++;
     }
 
     public void add_Node(Phone data, int PhoneID) {
@@ -172,4 +185,14 @@ public class List {
             System.out.println("Maximum value is : " + max);
         return null;
         }
+
+    private boolean isIDExist(int code) {
+        boolean check = false;
+         for(Node k = head;k!=null;k=k.next){
+            if(k.data.getID() == code) {
+                check = true;
+            }
+        }
+        return check;
     }
+}
