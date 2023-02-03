@@ -27,6 +27,10 @@ public class Main {
             System.out.println("6. Delete Node");
             System.out.println("7. Check existing Phone");
             System.out.println("8. Search by name");
+            System.out.println("9. Show Phone list Year >2020");
+            System.out.println("10. Check length");
+            System.out.println("11. Clear all");
+            System.out.println("12. Find the node maximum value");
             System.out.println("Others. Quit");
             System.out.print("Choice: ");
             choice = Integer.parseInt(sc.nextLine());
@@ -76,7 +80,20 @@ public class Main {
                     String name = sc.nextLine();
                     list.search(name);
                     break;
+                case 9:
+                    list.show2();
+                    break;
+                case 10:
+                    int length = list.length();
+                    System.out.println("Length of list: "+length);
+                    break;
+                case 11:
+                    list.clear();
+                    break;
+                case 12:
+                    list.MaxValue();
+                    break;
             }       
-        } while (choice>0 && choice<9);
+        } while (choice>0 && choice<13);
     }
 }

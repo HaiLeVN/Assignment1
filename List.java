@@ -47,10 +47,10 @@ public class List {
         int code, amount, year;
         String name;
         double price;
-        System.out.print("Phone ID ");
+        System.out.print("Phone ID: ");
         code = sc.nextInt();
         sc.nextLine();
-        while (isIDExist(code)) {
+        while (isExisting(code)) {
             System.out.print("ID already exists, please enter a different ID: ");
             code = sc.nextInt();
             sc.nextLine();
@@ -82,7 +82,6 @@ public class List {
             head = tail = new Node(data, null);
         } else {
             Node p = new Node(data, null);
-            p.next = head;
             head = p;
         }
         size++;
@@ -93,7 +92,6 @@ public class List {
             head = tail = new Node(data, null);
         } else {
             Node newest = new Node(data, null);
-            newest.next = null;
             tail.next = newest;
             tail = newest; 
         }
@@ -124,36 +122,32 @@ public class List {
             }
             p.next = null;
             tail = p;
+            size--;
         }
     }
 
     public void deleteNode(int PhoneID) {
-        if (isEmpty()) {
-            return;
+        if(isEmpty()) {
+            System.out.println("List is empty");
         }
-        Node p = head;
-        Node prev = null;
-        if (!isExisting(PhoneID)) {
-            System.out.println("NOT FOUND !!!");
-        }
-        if (isExisting(PhoneID)) {
-            while(p!=null){
-                
+        else {
+            Node temp = head;
+            Node prev = null;
+            while(temp != null) {
+                if(temp.data.getID() == PhoneID) {
+                    if (prev != null) {
+                        prev.next = temp.next;
+                    } else {
+                        head = temp.next;
+                    }
+                    size--;
+                    break;
+                }
+                prev = temp;
+                temp = temp.next;
             }
         }
     }
-
-    public boolean isExisting(int PhoneID) {
-        Node p = head;
-        while (p != null) {
-            if (p.data.equals(PhoneID)) {
-                return true;
-            }
-            p = p.next;
-        }
-        return false;
-    }
-    
 
     public int search(String name) {
         Node p = head;
@@ -172,21 +166,25 @@ public class List {
 
     public Node MaxValue() {
         Phone phone = new Phone();
-        double max = phone.getValue();
+        double max = 0;
         Node p = head;
         if (head == null) {
             System.out.println("List is Empty");
         } else {
+            max = head.data.getValue();
             while (p != null) {
-                
+                if (max < phone.getPrice()*phone.getAmount()) {                    
+                    max = phone.getPrice()*phone.getAmount();
                 }
                 p = p.next;
             }
             System.out.println("Maximum value is : " + max);
-        return null;
-        }
 
-    private boolean isIDExist(int code) {
+        }
+        return null;
+    }
+
+    public boolean isExisting(int code) {
         boolean check = false;
          for(Node k = head;k!=null;k=k.next){
             if(k.data.getID() == code) {
