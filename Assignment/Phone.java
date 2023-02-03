@@ -8,6 +8,7 @@ public class Phone {
    
    public Phone(){      
    }
+   
     public Phone(int ID, String Name, double Price, int Amount, int Year) {
         this.ID = ID;
         this.Name = Name;
@@ -55,4 +56,8 @@ public class Phone {
     public void setYear(int Year) {
         this.Year = Year;
     }  
+
+    public double getValue() {
+        return getPrice()*getAmount();
+    }
 }

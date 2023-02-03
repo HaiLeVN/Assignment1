@@ -1,5 +1,7 @@
 package Assignment;
 
+import java.util.Scanner;
+
 public class List {
 
     Node head, tail;
@@ -29,11 +31,33 @@ public class List {
         return count;
     }
 
-    public void show() {
-        Phone obj = new Phone();
+    public void show(Phone obj) {
         for (int i = 0; i < length(); i++) {
-            System.out.print(obj.getID() + " ");
+            System.out.print(obj.getID() + " " +obj.getName() + " " + obj.getPrice() + " " + obj.getAmount() + " " + obj.getYear() + "\n");
         }
+    }
+    public void input() {
+        Scanner sc = new Scanner(System.in);
+        int code, amount, year;
+        String name;
+        double price;
+        
+        System.out.print("Phone ID ");
+        code = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Name: ");
+        name = sc.nextLine();
+        System.out.print("Price: ");
+        price = sc.nextDouble();
+        sc.nextLine();
+        System.out.print("Amount: ");
+        amount = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Year: ");
+        year = sc.nextInt();
+        System.out.println("Successfully added!");
+        Phone phone = new Phone(code, name, price, amount, year);
+        add_Last(phone);
     }
 
     public void show2() {
@@ -45,7 +69,7 @@ public class List {
         }
     }
 
-    public void add_First(Object data) {
+    public void add_First(Phone data) {
         if (isEmpty()) {
             head = tail = new Node(data);
         } else {
@@ -55,7 +79,7 @@ public class List {
         }
     }
 
-    public void add_Last(Object data) {
+    public void add_Last(Phone data) {
         if (isEmpty()) {
             head = tail = new Node(data);
         } else {
@@ -65,7 +89,7 @@ public class List {
         }
     }
 
-    public void add_Node(Object data, int PhoneID) {
+    public void add_Node(Phone data, int PhoneID) {
 
     }
 
@@ -102,8 +126,9 @@ public class List {
             System.out.println("NOT FOUND !!!");
         }
         if (isExisting(PhoneID)) {
-            while(p != null && p.data == PhoneID){
+            while(p!=null){
                 
+            }
         }
     }
 
@@ -117,6 +142,7 @@ public class List {
         }
         return false;
     }
+    
 
     public int search(String name) {
         Node p = head;
@@ -138,14 +164,12 @@ public class List {
         if (head == null) {
             System.out.println("List is Empty");
         } else {
-            
             while (p != null) {
-
+                
                 }
                 p = p.next;
             }
             System.out.println("Maximum value is : " + max);
-        }
         return null;
+        }
     }
-}
