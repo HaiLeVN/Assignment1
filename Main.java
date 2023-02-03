@@ -32,17 +32,21 @@ public class Main {
             choice = Integer.parseInt(sc.nextLine());
             switch(choice) {
                 case 1:
-                    list.input();
+                    obj = list.input();
+                    list.add_Last(obj);
+                    list.show();
                     break;
                 case 2:
                     obj = list.input();
                     list.add_First(obj);
+                    list.show();
                     break;
                 case 3:
-                    obj = list.input();
                     System.out.print("Input ID to add after: ");
-                    int ID = sc.nextInt();
+                    int ID = Integer.parseInt(sc.nextLine());
+                    obj = list.input();
                     list.add_Node(obj, ID);
+                    list.show();
                     break;
                 case 4:
                     list.delete_first();
@@ -54,12 +58,12 @@ public class Main {
                     break;
                 case 6:
                     System.out.print("Delete Phone ID: ");
-                    ID = sc.nextInt();
+                    ID = Integer.parseInt(sc.nextLine());
                     list.deleteNode(ID);
                     break;
                 case 7:
                     System.out.print("Enter Phone ID to check: ");
-                    ID = sc.nextInt();
+                    ID = Integer.parseInt(sc.nextLine());
                     boolean check = list.isExisting(ID);
                     if(check) {
                         System.out.println("Phone exists");

@@ -41,6 +41,7 @@ public class List {
         
     }
     public Phone input() {
+        System.out.println("Enter the information of Phone");
         Phone phone = new Phone();
         Scanner sc = new Scanner(System.in);
         int code, amount, year;
@@ -64,10 +65,7 @@ public class List {
         sc.nextLine();
         System.out.print("Year: ");
         year = sc.nextInt();
-        System.out.println("Successfully added!");
         phone = new Phone(code, name, price, amount, year);
-        add_Last(phone);
-        show();
         return phone;
     }
 
@@ -163,6 +161,8 @@ public class List {
         while (p != null) {
             if (p.data.equals(name)) {
                 return pos;
+            } else {
+                System.out.println("Not exist");
             }
             p = p.next;
             pos++;
