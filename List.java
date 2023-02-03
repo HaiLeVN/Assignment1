@@ -48,22 +48,41 @@ public class List {
         String name;
         double price;
         System.out.print("Phone ID: ");
-        code = sc.nextInt();
-        sc.nextLine();
-        while (isExisting(code)) {
-            System.out.print("ID already exists, please enter a different ID: ");
-            code = sc.nextInt();
+        while (!sc.hasNextInt()) {
+            System.out.print("Invalid input, please enter an integer: ");
             sc.nextLine();
         }
+        code = sc.nextInt();
+        while (isExisting(code)) {
+            System.out.print("ID already exists, please enter a different ID: ");
+            while (!sc.hasNextInt()) {
+                System.out.print("Invalid input, please enter an integer: ");
+                sc.nextLine();
+            }
+            code = sc.nextInt();
+        }
+        sc.nextLine();
         System.out.print("Name: ");
         name = sc.nextLine();
         System.out.print("Price: ");
+        while (!sc.hasNextDouble()) {
+            System.out.print("Invalid input, please enter a number: ");
+            sc.nextLine();
+        }
         price = sc.nextDouble();
         sc.nextLine();
         System.out.print("Amount: ");
+        while (!sc.hasNextInt()) {
+            System.out.print("Invalid input, please enter an integer: ");
+            sc.nextLine();
+        }
         amount = sc.nextInt();
         sc.nextLine();
         System.out.print("Year: ");
+        while (!sc.hasNextInt()) {
+            System.out.print("Invalid input, please enter an integer: ");
+            sc.nextLine();
+        }
         year = sc.nextInt();
         phone = new Phone(code, name, price, amount, year);
         return phone;
@@ -82,6 +101,7 @@ public class List {
             head = tail = new Node(data, null);
         } else {
             Node p = new Node(data, null);
+            p.next = head;
             head = p;
         }
         size++;
@@ -99,7 +119,25 @@ public class List {
     }
 
     public void add_Node(Phone data, int PhoneID) {
-
+        if(isEmpty()) {
+            head = tail = new Node(data, null);
+            
+        } else {
+            Node temp = head;
+            while(temp != null) {
+                if(temp.data.getID() == PhoneID) {
+                    Node newest = new Node(data, temp.next);
+                    temp.next = newest;
+                    if(temp==tail) {
+                        tail=newest;
+                    }
+                    size++;
+                    return;
+                }
+                temp=temp.next;
+            }
+            add_Last(data);
+        }
     }
 
     public void delete_first() {
@@ -126,42 +164,49 @@ public class List {
         }
     }
 
+    
+    // 1 (head) - 2 - 7 - 4 (tail) - null
+    
+    //Singly Linked List
     public void deleteNode(int PhoneID) {
         if(isEmpty()) {
             System.out.println("List is empty");
+            return;
         }
-        else {
-            Node temp = head;
-            Node prev = null;
-            while(temp != null) {
-                if(temp.data.getID() == PhoneID) {
-                    if (prev != null) {
-                        prev.next = temp.next;
-                    } else {
-                        head = temp.next;
-                    }
-                    size--;
-                    break;
+        if (head.data.getID() == PhoneID) {
+            head = head.next;
+            if(head==null) {
+                tail=null;
+            }
+            return;
+        }
+        Node prev = head;
+        Node current = head.next;
+        while (current != null) {
+            if(current.data.getID() == PhoneID) {
+                prev.next = current.next;
+                
+                if(current == tail) {
+                    tail = prev;
                 }
-                prev = temp;
-                temp = temp.next;
+                break;
+            } else {
+                prev = current;
+                current = current.next;
             }
         }
     }
 
     public int search(String name) {
         Node p = head;
-        int pos = 0;
+        int count = 0;
         while (p != null) {
-            if (p.data.equals(name)) {
-                return pos;
-            } else {
-                System.out.println("Not exist");
+            if (p.data.getName().equalsIgnoreCase(name)) {
+                count++;
             }
             p = p.next;
-            pos++;
         }
-        return 0;
+        return count;
     }
 
     public Node MaxValue() {
